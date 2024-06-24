@@ -11,14 +11,14 @@ os.environ["OPENAI_API_KEY"]=open_api_key
 client2 = OpenAI()
 
 client = ElevenLabs(
-  api_key="26eb00f9e99a7f45ed9fdbdb96b4a8a7", # Defaults to ELEVEN_API_KEY
+  api_key="", # Defaults to ELEVEN_API_KEY
 )
 
 API_URL = "" #AWS Server Endpoint URL, Currently Unavailable
 
 headers = {
     "Accept" : "application/json",
-    "Authorization": "Bearer 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",
+    "Authorization": "",
     "Content-Type": "application/json"
 }
 
