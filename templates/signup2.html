@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' href="{{ url_for('static',filename='styles/login.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='maya.svg') }}">
+        <title>Sign Up - MAYA</title>
+    </head>
+<body>
+    <script src="https://kit.fontawesome.com/22905693d1.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static',filename='signup.js') }}"></script>
+    <div class="login_page">
+        <div class="logo_img"><img src="{{ url_for('static', filename='maya.svg') }}"></div>
+        <div class="welcome">Create your Account !</div>
+        <form action="/signup" id="signupForm" method="POST">
+        <div class="input-username">
+            <p id="floating_placeholder-user">Username</p>
+            <input type="text" name = "username" id = "username" placeholder="Username">
+            <span id="edit-user">Edit</span>
+        </div>
+        <div class="empty_user"><p><i class="fa-solid fa-circle-exclamation"></i> Enter a Username!</p></div>
+        <div class="input-email">
+            <p id="floating_placeholder">Email Address</p>
+            <input type="email" id = "email" name = "email" placeholder="Email Address">
+            <span id="edit-email">Edit</span>
+        </div>
+        <div class="invalid_email"><p><i class="fa-solid fa-circle-exclamation"></i> Email is not valid!</p></div>
+        <div class="input-password">
+            <div class="border">
+                <p id="floating_placeholder-1">Password</p>
+                <input type="text" id = "password" name = "password" placeholder="Password">
+                <span><i class="fa-solid fa-eye" id="hide"></i></span>
+            </div>
+        </div>
+        <div class="empty_password"><p><i class="fa-solid fa-circle-exclamation"></i> Enter a Password!</p></div>
+        <div class="instructions"><p>Your password must contain: <br><span class="green"><i class="fa-solid fa-xmark"></i>At least 12 characters</p></span></div>
+        <div class="continue"><button type = "submit">Continue</button></div>
+        </form>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var form = document.getElementById('signupForm');
+                form.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault(); // Prevent default form submission behavior
+                        var activeElement = document.activeElement; // Get currently focused element
+                        if (activeElement.tagName.toLowerCase() === 'input') {
+                            var nextElement = activeElement.nextElementSibling; // Get next element in the form
+                            if (nextElement && nextElement.tagName.toLowerCase() === 'input') {
+                                nextElement.focus(); // Move focus to the next input field
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+        <div class="signup"><p>Already have an account? <a href="/login">Login</a></p></div>
+        <div class="or"><hr><p>OR</p><hr></div>
+        <div class="google"><button><i class="fa-brands fa-google"></i>Continue with Google</button></div>
+        <div class="microsoft"><button><i class="fa-brands fa-windows"></i>Continue with Microsoft Account</button></div>
+        <div class="policy"><p><span>Terms of Use</span> | <span>Privacy Policy</span></p></div>
+    </div>
+</body>
+</html>

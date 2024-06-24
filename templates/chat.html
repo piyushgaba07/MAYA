@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href={{ url_for('static', filename='styles/style.css') }}>
+    <link rel="icon" href={{ url_for('static', filename='maya.svg' )}}>
+    <title>MAYA</title>
+  </head>
+  <body>
+    <script src={{ url_for('static', filename='script.js') }}></script>
+    <script src="https://kit.fontawesome.com/22905693d1.js" crossorigin="anonymous"></script>
+    <div id="root">
+        <div class="flex">
+            <!-- SIDEBAR -->
+            <div class='sidebar'>
+                <div class='sidebar__new-chat'>
+                    <div class='sidebar__new-chat_logo'>
+                        <img src="{{ url_for('static', filename='maya.svg') }}" id="maya_madam">
+                        <p>New chat</p>
+                    </div>
+                    <div><i class="fa-solid fa-pen-to-square" id="sidebar__new-chat-i"></i></div>
+                </div>
+                <div class='sidebar__chats'>
+                    {% if user_chats|length > 0 %}
+                        {% for chat in user_chats %}
+                        <div class='sidebar__chat'><a href = "/chat/{{chat.chat_id}}">
+                            <p>{{chat.chat_name}}</p></a>
+                            <a href = '/delete/{{chat.chat_id}}'><i class="fa-solid fa-trash"></i></a>
+                        </div>
+                        {% endfor %}
+                    {% endif %}                                        
+                </div>
+                <div class='sidebar__footer'>
+                    <div class='sidebar__footer-plans'>
+                        <div><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <div>
+                            <div><h3>Upgrade Plan</h3></div>
+                            <div><p>Get MAYA Pro</p></div>
+                        </div>
+                    </div>
+                    <div class='sidebar__footer-user'>
+                        <div class='sidebar__footer-user_logo'>{{ user.username[:2]|upper }}</div>
+                        <div class='sidebar__footer-user_name'>{{user.username}}</div>
+                        <div class="sidebar__footer-user_logout">
+                            <div id="logout"><a href = '/logout'>Logout</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- HIDE/SHOW SIDEBAR -->
+            <div class="arrow"><div><i class="fa-solid fa-chevron-left"></i></div></div>
+            <!-- MAIN CONTENT -->
+            <div class="content">
+                <div class="content__logo">
+                    <div><i class="fa-solid fa-pen-to-square" id="content__logo-i"></i></div>
+                    <a href='/chat'>MAYA <span class="gray"> 1.0</span></a>
+                </div>
+                <div class="content__main">
+                    <div class="content__main-heading"><img src="{{ url_for('static', filename='maya.svg') }}" id="maya_madam_1">How can I help you today?</div>
+                </div>
+                <div class="content__footer">
+                    <div class="content__footer-grid">
+                        <a href="/default1"><div class="content__footer-grid_div">
+                            <div>
+                                <div class="content__footer-grid_div-1">Can you help me?</div>
+                                <div class="content__footer-grid_div-2">I'm feeling stressed.</div>
+                            </div>
+                            <div><i class="fa-solid fa-arrow-up"></i></div>
+                        </div></a>
+                        <a href="/default2"><div class="content__footer-grid_div">
+                            <div>
+                                <div class="content__footer-grid_div-1">I need someone to talk to.</div>
+                                <div class="content__footer-grid_div-2">I'm feeling confused.</div>
+                            </div>
+                            <div><i class="fa-solid fa-arrow-up"></i></div>
+                        </div></a>
+                        <a href="/default3"><div class="content__footer-grid_div">
+                            <div>
+                                <div class="content__footer-grid_div-1">I feel like I'm on my own.</div>
+                                <div class="content__footer-grid_div-2">I'm feeling lonely.</div>
+                            </div>
+                            <div><i class="fa-solid fa-arrow-up"></i></div>
+                        </div></a>
+                        <a href="/default4"><div class="content__footer-grid_div">
+                            <div>
+                                <div class="content__footer-grid_div-1">I'm completely directionless.</div>
+                                <div class="content__footer-grid_div-2">I'm feeling lost.</div>
+                            </div>
+                            <div><i class="fa-solid fa-arrow-up"></i></div>
+                        </div></a>
+                    </div>
+                    <div class="content__footer-input">
+                        <div class="content__footer-input_div">
+                            <form action="/chat" method="POST">
+                            <input type="text" name = "input" id = "input" placeholder="Message MAYA...">
+                            <button type = "submit"><i class="fa-solid fa-arrow-up" id="message_i"></i></button>
+                            </form>
+                           <a href = '/mic'><i class="fa-solid fa-microphone" id="message_mic"></i></a>
+                        </div>
+                    </div>
+                    <div class="content__footer-text">MAYA can make mistakes. Consider checking important information.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

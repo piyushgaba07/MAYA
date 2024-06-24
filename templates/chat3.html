@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href={{ url_for('static', filename='styles/style.css') }}>
+    <link rel="icon" href="{{ url_for('static', filename='maya.svg' )}}">
+    <title>MAYA</title>
+  </head>
+  <body>
+    <script src={{ url_for('static', filename='script.js') }}></script>
+    <script src="https://kit.fontawesome.com/22905693d1.js" crossorigin="anonymous"></script>
+    <div id="root">
+        <div class="flex">
+            <!-- SIDEBAR -->
+            <div class='sidebar'>
+                <div class='sidebar__new-chat'>
+                    <div class='sidebar__new-chat_logo'>
+                        <img src="{{ url_for('static', filename='maya.svg') }}" id="maya_madam">
+                        <a href = '/chat'><p>New chat</p></a>
+                    </div>
+                    <div><i class="fa-solid fa-pen-to-square" id="sidebar__new-chat-i"></i></div>
+                </div>
+                <div class='sidebar__chats'>
+                    {% if user_chats|length > 0 %}
+                        {% for chat in user_chats %}
+                        <div class='sidebar__chat'><a href = "/chat/{{chat.chat_id}}">
+                            <p>{{chat.chat_name}}</p></a>
+                            <a href = '/delete/{{chat.chat_id}}'><i class="fa-solid fa-trash" style="color: white;" id="trash"></i></a>
+                        </div>
+                        {% endfor %}
+                    {% endif %}        
+                </div>
+                <div class='sidebar__footer'>
+                    <div class='sidebar__footer-plans'>
+                        <div><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <div>
+                            <div><h3>Upgrade Plan</h3></div>
+                            <div><p>Get MAYA Pro</p></div>
+                        </div>
+                    </div>
+                    <div class='sidebar__footer-user'>
+                        <div class='sidebar__footer-user_logo'>{{ user.username[:2]|upper }}</div>
+                        <div class='sidebar__footer-user_name'>{{user.username}}</div>
+                        <div class="sidebar__footer-user_logout">
+                            <div id="logout"><a href = '/logout'>Logout</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- HIDE/SHOW SIDEBAR -->
+            <div class="arrow"><div><i class="fa-solid fa-chevron-left"></i></div></div>
+            <!-- MAIN CONTENT -->
+            <div class="content">
+                <div class="content__logo">
+                    <div><i class="fa-solid fa-pen-to-square" id="content__logo-i"></i></div>
+                    <a href='/chat'>MAYA<span class="gray"> 1.0</span></a>
+                </div>
+                <div class="content__main">
+                    <div class="content__messages">
+                        {% if transcripts|length>0 %}
+                            {% for transcript in transcripts %}
+                                {% if transcript.sender == "user" %}
+                                <div class="content__message">
+                                    <div class='message__header'>
+                                        <div class='message__header_logo'>${(username.innerHTML).substring(0, 2).toUpperCase()}</div>
+                                        <div class='message__header_name' style="font-weight: 600;">You</div>
+                                    </div>
+                                    <div class="message__text">{{transcript.message}}</div>
+                                </div>
+                                {% else %}
+                                <div class="content__message" style="margin:1.5rem 0rem;">
+                                    <div class='message__header'>
+                                        <div class='message__header_img'><img src="{{ url_for('static', filename='maya.svg' )}}" style="background-color: white; width: 2.2vw;"></div>
+                                        <div class='message__header_name' style="font-weight: 600;">MAYA</div>
+                                    </div>
+                                    <div class="message__text">{{transcript.message}}</div>
+                                </div>  
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="content__footer">
+                    <div class="content__footer-input">
+                        <div class="content__footer-input_div">
+                            <form action="/chat/{{chat.chat_id}}" id = "messageForm" method="POST">
+                            <input type="text" name = "input" id = "input" placeholder="Message MAYA...">
+                            <button type = "submit" id="button_input"><i class="fa-solid fa-arrow-up" id="message_i"></i></button>
+                            </form>
+                            <a href = '/mic/{{chat.chat_id}}'><i class="fa-solid fa-microphone" id="message_mic"></i></a>
+                        </div>
+                    </div>
+                    <div class="content__footer-text">MAYA can make mistakes. Consider checking important information.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
